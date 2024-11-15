@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+
+{% block title %}Urban Decor - Custom 1of1 Decor Pieces{% endblock %}
+
+{% block content %}
+    <h1>Products</h1>
+    <div class="product-list">
+        {% for product in products %}
+            <div class="product-card">
+                <a href="{% url 'product:product_detail' product.id %}">
+                    <img src="{{ product.image.url }}" alt="{{ product.name }}">
+                    <h2>{{ product.name }}</h2>
+                </a>
+                <p>Price: ${{ product.price }}</p>
+                <form action="{% url 'order:add_to_cart' product.id %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit">Add to Cart</button>
+                </form>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
+</html>

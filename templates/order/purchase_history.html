@@ -1,0 +1,47 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Purchase History</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}"> <!-- Include CSS file as needed -->
+</head>
+<body>
+
+<div class="container">
+    <h1>Purchase History</h1>
+    
+    {% if orders %}
+        <table class="order-history-table">
+            <thead>
+                <tr>
+                    <th>Order ID</th>
+                    <th>Date</th>
+                    <th>Status</th>
+                    <th>Total Amount</th>
+                    <th>Details</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for order in orders %}
+                    <tr>
+                        <td>{{ order.pk }}</td>
+                        <td>{{ order.created_at|date:"Y-m-d H:i" }}</td>
+                        <td>{{ order.get_status_display }}</td>
+                        <td>${{ order.total_amount }}</td>
+                        <td>
+                            <a href="{% url 'order:order_detail' order.pk %}">View</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>You have no purchase history at the moment.</p>
+    {% endif %}
+</div>
+
+</body>
+</html>

@@ -1,0 +1,62 @@
+{%load static%}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Details - Order #{{ order.order_id }}</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>Order Details</h1>
+        <p><strong>Order ID:</strong> {{ order.order_id }}</p>
+        <p><strong>Order Date:</strong> {{ order.created_at|date:"M d, Y H:i" }}</p>
+        <p><strong>Status:</strong> {{ order.get_status_display }}</p>
+
+        <h2>Shipping Information</h2>
+        <p><strong>Name:</strong> {{ order.customer.get_full_name|default:"Guest" }}</p>
+        <p><strong>Email:</strong> {{ order.shipping_info.email }}</p>
+        <p><strong>Phone:</strong> {{ order.shipping_info.phone }}</p>
+        <p><strong>Address:</strong> {{ order.shipping_info.address }}, {{ order.shipping_info.city }}</p>
+
+        <h2>Order Items</h2>
+        <table class="order-items">
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in order.order_items.all %}
+                <tr>
+                    <td>{{ item.product.name }}</td>
+                    <td>{{ item.quantity }}</td>
+                    <td>${{ item.price }}</td>
+                    <td>${{ item.item_total|floatformat:2 }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <h3>Order Summary</h3>
+        <p><strong>Subtotal:</strong> ${{ order.cart_value|floatformat:2 }}</p>
+        <p><strong>Total Amount:</strong> ${{ order.total_amount|floatformat:2 }}</p>
+
+        <h2>Payment Information</h2>
+        {% if order.payment %}
+        <p><strong>Status:</strong> {{ order.payment.get_payment_status_display }}</p>
+        <p><strong>Transaction ID:</strong> {{ order.payment.transaction_id }}</p>
+        <p><strong>Amount Paid:</strong> ${{ order.payment.amount|floatformat:2 }}</p>
+        {% else %}
+        <p><em>Payment information not available</em></p>
+        {% endif %}
+
+        <a href="{% url 'order:purchase_history' %}" class="btn">Back to Purchase History</a>
+    </div>
+</body>
+</html>
