@@ -1,103 +1,108 @@
 {% extends 'base.html' %}
-{% load static %}
 
-{% block title %}Urban Decor - Custom 1of1 Decor Pieces{% endblock %}
+{% block title %}Urban Decor | Home{% endblock %}
+{% block meta_description %}Discover curated elegance and timeless design at Urban Decor.{% endblock %}
+
+{% block extra_css %}
+<style>
+    section#about {
+    padding: 20px;
+    margin: 10px;
+    }
+    .product-card {
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 10px 30px var(--shadow);
+    transition: var(--transition);
+    padding: 10px;
+    justify-self: center;
+    width: 20rem;
+    height: auto;
+}
+
+
+</style>
+{% endblock %}
 
 {% block content %}
-<!-- Start Hero Section -->
-<div class="hero">
-    <div class="container">
-        <div class="row justify-content-between">
-            <div class="col-lg-5">
-                <div class="intro-excerpt">
-                    <h1>Unique Custom <span class="d-block">Decor Pieces</span></h1>
-                    <p class="mb-4">Transform your space with our one-of-a-kind, handcrafted decor pieces. Each item tells its own story.</p>
-                    <p><a href="{% url 'product:shop' %}" class="btn btn-secondary me-2">Shop Now</a><a href="{% url 'core:about' %}" class="btn btn-white-outline">Learn More</a></p>
-                </div>
-            </div>
-            <div class="col-lg-7">
-                <div class="hero-img-wrap">
-                    <img src="{% static 'images/couch.png' %}" class="img-fluid">
-                </div>
+<section class="hero">
+    <div class="hero-content" data-aos="fade-up">
+        <h1>Curated Elegance<br>Timeless Design</h1>
+        <p>Where luxury meets artistry in creating spaces that inspire and endure.</p>
+        <a href="{% url 'product:shop' %}" class="cta-btn">Explore Collection</a>
+    </div>
+</section>
+
+
+<section class="section" id="collection">
+    <div class="row">
+        <div class="col-md-12 col-lg-3 mb-5 mb-lg-0">
+        <h2 class="mb-4 section-title">Crafted with excellent material.</h2>
+        <p class="mb-4">Donec vitae odio quis nisl dapibus malesuada. Nullam ac aliquet velit. Aliquam vulputate velit imperdiet dolor tempor tristique. </p>
+        <p><a href="{% url 'product:shop'%}" class="btn">Explore store</a></p>
+        </div>
+        <h2 class="section-title" data-aos="fade-up">Featured Collection</h2>
+        <div class="featured-grid">
+        {% for product in products %}
+        <div class="product-card" data-aos="fade-up">
+            <img src="{{ product.image.url }}" alt="{{ product.name }}">
+            <div class="product-info">
+                <h3>{{ product.name }}</h3>
+                <a href="{% url 'product:product_detail' product.id %}" class="cta-btn">Learn More</a>
             </div>
         </div>
-    </div>
-</div>
-<!-- End Hero Section -->
-
-<!-- Start Featured Product Section -->
-<div class="product-section" id="featured-products">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12 col-lg-3 mb-5 mb-lg-0">
-                <h2 class="mb-4 section-title">Crafted with passion & precision</h2>
-                <p class="mb-4">Each piece is meticulously designed and crafted to bring unique character to your space. Our commitment to quality ensures that every item is truly special.</p>
-                <p><a href="{% url 'product:shop' %}" class="btn">View All</a></p>
-            </div> 
-
-            {% for product in products %}
-            <div class="col-12 col-md-4 col-lg-3 mb-5 mb-md-0">
-                <a class="product-item" href="{% url 'product:product_detail' product.id %}">
-                    <img src="{{ product.image.url }}" class="img-fluid product-thumbnail">
-                    <h3 class="product-title">{{ product.name }}</h3>
-                    <strong class="product-price">${{ product.price }}</strong>
-                   <!-- <span class="icon-cross">
-                        <img src="{% static 'images/cross.svg' %}" class="img-fluid">
-                    </span>-->
-                </a>
-            </div>
-            {% endfor %}
+        {% endfor %}
         </div>
     </div>
-</div>
-<!-- End Featured Product Section -->
+</section>
 
 <!-- Start Why Choose Us Section -->
-<div class="why-choose-section">
+<section class="about-us" id="about">
+    <div class="why-choose-section">
     <div class="container">
         <div class="row justify-content-between">
+            <h2 class="section-title">Why Choose Urban Decor</h2>
             <div class="col-lg-6">
-                <h2 class="section-title">Why Choose Us</h2>
-                <p>We pride ourselves on creating unique, handcrafted pieces that bring character and style to your space.</p>
-
+                <p>Transform your space with our carefully curated collection of modern and elegant home décor. We blend contemporary design with timeless aesthetics to bring sophistication to your living spaces.</p>
+                
                 <div class="row my-5">
                     <div class="col-6 col-md-6">
                         <div class="feature">
                             <div class="icon">
-                                <img src="{% static 'images/truck.svg' %}" alt="Image" class="img-fluid">
+                                <i class="fas fa-paint-brush"></i>
                             </div>
-                            <h3>Fast &amp; Free Shipping</h3>
-                            <p>Free shipping on all orders within the continental US.</p>
+                            <h3>Curated Design</h3>
+                            <p>Each piece in our collection is carefully selected to ensure quality, style, and versatility for your modern living spaces.</p>
                         </div>
                     </div>
 
                     <div class="col-6 col-md-6">
                         <div class="feature">
                             <div class="icon">
-                                <img src="{% static 'images/bag.svg' %}" alt="Image" class="img-fluid">
+                                <i class="fas fa-hand-holding-heart"></i>
                             </div>
-                            <h3>Unique Designs</h3>
-                            <p>Every piece is one-of-a-kind, ensuring your decor is truly unique.</p>
+                            <h3>Quality Craftsmanship</h3>
+                            <p>We partner with skilled artisans who create pieces that combine traditional craftsmanship with contemporary design.</p>
                         </div>
                     </div>
 
                     <div class="col-6 col-md-6">
                         <div class="feature">
                             <div class="icon">
-                                <img src="{% static 'images/support.svg' %}" alt="Image" class="img-fluid">
+                                <i class="fas fa-truck"></i>
                             </div>
-                            <h3>24/7 Support</h3>
-                            <p>Our dedicated team is always here to help with any questions.</p>
+                            <h3>White Glove Delivery</h3>
+                            <p>Enjoy premium delivery service with careful handling and professional installation of your décor pieces.</p>
                         </div>
                     </div>
 
                     <div class="col-6 col-md-6">
                         <div class="feature">
                             <div class="icon">
-                                <img src="{% static 'images/return.svg' %}" alt="Image" class="img-fluid">
+                                <i class="fas fa-comments"></i>
                             </div>
-                            <h3>Hassle Free Returns</h3>
-                            <p>30-day return policy for your peace of mind.</p>
+                            <h3>Design Consultation</h3>
+                            <p>Get personalized advice from our interior design experts to help you create your perfect space.</p>
                         </div>
                     </div>
                 </div>
@@ -105,171 +110,35 @@
 
             <div class="col-lg-5">
                 <div class="img-wrap">
-                    <img src="{% static 'images/why-choose-us-img.jpg' %}" alt="Image" class="img-fluid">
+                    <img src="/api/placeholder/600/800" alt="Modern living room with Urban Decor pieces" class="img-fluid">
                 </div>
             </div>
         </div>
     </div>
-</div>
-<!-- End Why Choose Us Section -->
-<div class="we-help-section">
-    <div class="container">
-        <div class="row justify-content-between">
-            <div class="col-lg-7 mb-5 mb-lg-0">
-                <div class="imgs-grid">
-                    <div class="grid grid-2"><img src="{% static 'images/img-grid-2.jpg' %}" alt="Untree.co"></div>
-                    <div class="grid grid-3"><img src="{% static 'images/img-grid-3.jpg'%}" alt="Untree.co"></div>
-                    <div class="grid grid-1"><img src="{% static 'images/img-grid-1.jpg'%}" alt="Untree.co"></div>
-                </div>
-            </div>
-            <div class="col-lg-5 ps-lg-5">
-                <h2 class="section-title mb-4">We Help You Make Modern Interior Design</h2>
-                <p>Donec facilisis quam ut purus rutrum lobortis. Donec vitae odio quis nisl dapibus malesuada. Nullam ac aliquet velit. Aliquam vulputate velit imperdiet dolor tempor tristique. Pellentesque habitant morbi tristique senectus et netus et malesuada</p>
-
-                <ul class="list-unstyled custom-list my-4">
-                    <li>Donec vitae odio quis nisl dapibus malesuada</li>
-                    <li>Donec vitae odio quis nisl dapibus malesuada</li>
-                    <li>Donec vitae odio quis nisl dapibus malesuada</li>
-                    <li>Donec vitae odio quis nisl dapibus malesuada</li>
-                </ul>
-                <p><a herf="{% url 'product:shop'%}" class="btn">Explore</a></p>
-            </div>
-        </div>
     </div>
-</div>
-<!-- End We Help Section -->
+</section>
 
-<!-- Start Testimonial Slider -->
-    <div class="testimonial-section">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-7 mx-auto text-center">
-                    <h2 class="section-title">Testimonials</h2>
-                </div>
+<section class="section contact" id="contact">
+    <h2 class="section-title" data-aos="fade-up">Connect With Us</h2>
+    <div class="contact-form" data-aos="fade-up">
+        <form>
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" id="name" required>
             </div>
-
-            <div class="row justify-content-center">
-                <div class="col-lg-12">
-                    <div class="testimonial-slider-wrap text-center">
-
-                        <div id="testimonial-nav">
-                            <span class="prev" data-controls="prev"><span class="fa fa-chevron-left"></span></span>
-                            <span class="next" data-controls="next"><span class="fa fa-chevron-right"></span></span>
-                        </div>
-
-                        <div class="testimonial-slider">
-
-                            <div class="item">
-                                <div class="row justify-content-center">
-                                    <div class="col-lg-8 mx-auto">
-
-                                        <div class="testimonial-block text-center">
-                                            <blockquote class="mb-5">
-                                                <p>&ldquo;Donec facilisis quam ut purus rutrum lobortis. Donec vitae odio quis nisl dapibus malesuada. Nullam ac aliquet velit. Aliquam vulputate velit imperdiet dolor tempor tristique. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Integer convallis volutpat dui quis scelerisque.&rdquo;</p>
-                                            </blockquote>
-
-                                            <div class="author-info">
-                                                <div class="author-pic">
-                                                    <img src="{% static 'images/person-1.png' %}" alt="Maria Jones" class="img-fluid">
-                                                </div>
-                                                <h3 class="font-weight-bold">Maria Jones</h3>
-                                                <span class="position d-block mb-3">CEO, Co-Founder, XYZ Inc.</span>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div> 
-                            <!-- END item -->
-
-                            <div class="item">
-                                <div class="row justify-content-center">
-                                    <div class="col-lg-8 mx-auto">
-
-                                        <div class="testimonial-block text-center">
-                                            <blockquote class="mb-5">
-                                                <p>&ldquo;Donec facilisis quam ut purus rutrum lobortis. Donec vitae odio quis nisl dapibus malesuada. Nullam ac aliquet velit. Aliquam vulputate velit imperdiet dolor tempor tristique. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Integer convallis volutpat dui quis scelerisque.&rdquo;</p>
-                                            </blockquote>
-
-                                            <div class="author-info">
-                                                <div class="author-pic">
-                                                    <img src="{% static 'images/person-1.png'%}" alt="Maria Jones" class="img-fluid">
-                                                </div>
-                                                <h3 class="font-weight-bold">Maria Jones</h3>
-                                                <span class="position d-block mb-3">CEO, Co-Founder, XYZ Inc.</span>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div> 
-                            <!-- END item -->
-
-                            <div class="item">
-                                <div class="row justify-content-center">
-                                    <div class="col-lg-8 mx-auto">
-
-                                        <div class="testimonial-block text-center">
-                                            <blockquote class="mb-5">
-                                                <p>&ldquo;Donec facilisis quam ut purus rutrum lobortis. Donec vitae odio quis nisl dapibus malesuada. Nullam ac aliquet velit. Aliquam vulputate velit imperdiet dolor tempor tristique. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Integer convallis volutpat dui quis scelerisque.&rdquo;</p>
-                                            </blockquote>
-
-                                            <div class="author-info">
-                                                <div class="author-pic">
-                                                    <img src="{% static 'images/person-1.png' %}" alt="Maria Jones" class="img-fluid">
-                                                </div>
-                                                <h3 class="font-weight-bold">Maria Jones</h3>
-                                                <span class="position d-block mb-3">CEO, Co-Founder, XYZ Inc.</span>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div> 
-                            <!-- END item -->
-
-                        </div>
-
-                    </div>
-                </div>
+            
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" required>
             </div>
-        </div>
+            
+            <div class="form-group">
+                <label for="message">Message</label>
+                <textarea id="message" rows="5" required></textarea>
+            </div>
+            
+            <button type="submit" class="cta-btn">Send Message</button>
+        </form>
     </div>
-    <!-- End Testimonial Slider -->
-
-<!-- Start Blog Section -->
-{% if blog_posts %}
-<div class="blog-section">
-    <div class="container">
-        <div class="row mb-5">
-            <div class="col-md-6">
-                <h2 class="section-title">Recent Blog Posts</h2>
-            </div>
-            <div class="col-md-6 text-start text-md-end">
-                <a href="{% url 'core:blog_list' %}" class="more">View All Posts</a>
-            </div>
-        </div>
-
-        <div class="row">
-            {% for post in blog_posts %}
-            <div class="col-12 col-sm-6 col-md-4 mb-4 mb-md-0">
-                <div class="post-entry">
-                    <a href="{% url 'blog-detail' post.slug %}" class="post-thumbnail">
-                        <img src="{{ post.image.url }}" alt="{{ post.title }}" class="img-fluid">
-                    </a>
-                    <div class="post-content-entry">
-                        <h3><a href="{% url 'core:blog_detail' post.slug %}">{{ post.title }}</a></h3>
-                        <div class="meta">
-                            <span>by <a href="#">{{ post.author.get_full_name }}</a></span> 
-                            <span>on <a href="#">{{ post.created_at|date:"M d, Y" }}</a></span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            {% endfor %}
-        </div>
-    </div>
-</div>
-{% endif %}
-<!-- End Blog Section -->
+</section>
 {% endblock %}

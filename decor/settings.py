@@ -27,7 +27,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*', 'https://819d4b9e-4fb0-46b1-a675-ec57891ed8d8-00-mzllitlsfelu.worf.replit.dev/']
 
-CSRF_TRUSTED_ORIGINS = ['https://819d4b9e-4fb0-46b1-a675-ec57891ed8d8-00-mzllitlsfelu.worf.replit.dev', ]
+CSRF_TRUSTED_ORIGINS = ['https://localhost:8000', 'https://819d4b9e-4fb0-46b1-a675-ec57891ed8d8-00-mzllitlsfelu.worf.replit.dev', ]
 
 AUTH_USER_MODEL = 'core.User'
 

@@ -13,6 +13,8 @@ from product.models import Product
 
 def index(request):
     products = Product.objects.filter(featured=True)
+    for index, product in enumerate(products): 
+        product.delay = (index + 1) * 100
     return render(request, 'core/index.html', {'products':products})
 
 def subscribe_newsletter(request):
@@ -108,9 +110,9 @@ class BlogPostDetailView(DetailView):
 
 
 # About Page View
-def about_view(request):
-    contact_info = Contact.objects.first()
-    return render(request, 'core/about.html', {'contact_info': contact_info})
+#def about_view(request):
+#    contact_info = Contact.objects.first()
+#    return render(request, 'core/about.html', {'contact_info': contact_info})
 
 def privacy_policy(request):
     return render(request, 'core/privacy_policy.html')
