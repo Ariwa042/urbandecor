@@ -110,9 +110,9 @@ class BlogPostDetailView(DetailView):
 
 
 # About Page View
-#def about_view(request):
-#    contact_info = Contact.objects.first()
-#    return render(request, 'core/about.html', {'contact_info': contact_info})
+def about_view(request):
+    contact_info = Contact.objects.first()
+    return render(request, 'core/about.html', {'contact_info': contact_info})
 
 def privacy_policy(request):
     return render(request, 'core/privacy_policy.html')
